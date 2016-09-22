@@ -1,5 +1,6 @@
 var React = require('react');
 var Resultbox = require('./resultbox');
+var handleTeam = require('../../public/js/index.js');
 
 var Submitbutton = React.createClass({
   getInitialState: function() {
@@ -10,7 +11,8 @@ var Submitbutton = React.createClass({
     var content = this.props.markdownContent;
     if (content === null) {
       alert('You must enter a team.');
-    } else {
+    } else {          //To-do: Add image changing support
+      content = handleTeam.importTeam(content, 'icons');
       this.setState({content: content});
     }
   },

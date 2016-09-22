@@ -739,8 +739,8 @@ function hash (pokemon) {//gets dex number. eventually add support for megas
 	return pokemon;
 }
 
-function importTeam(text, format) {
-	if (!formats[format] || !text) return;
+var importTeam = function(text, format) {
+	if (!formats[format] || !text) return "error";
 	let lines = text.split('\n');
 	let data = [];
 	let pokemon = [];
@@ -759,8 +759,8 @@ function importTeam(text, format) {
 	pokemon = checkMega(data);
 	let fdata = formats[format];
 	for (let j = 0; j < pokemon.length; j++) {
-		output += '[img]' + fdata[0] + 
-			(fdata[2] ? hash(pokemon[j]) : pokemon[j].toLowerCase()) + 
+		output += '[img]' + fdata[0] +
+			(fdata[2] ? hash(pokemon[j]) : pokemon[j].toLowerCase()) +
 			fdata[1] + '[/img]';
 	}
 	return output;
@@ -773,3 +773,5 @@ function checkMega(team) {//at the moment just a compiler
 	}
 	return result;
 }
+
+module.exports.importTeam = importTeam;

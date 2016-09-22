@@ -3,7 +3,6 @@ var Reflux = require('reflux');
 var Markdown = require('markdown').markdown;
 var MarkdownEditorActions = require('../actions/MarkdownEditorActions');
 var PublicMarkdownEditorActions = require('../actions/PublicMarkdownEditorActions');
-var MarkdownSelectionActions = require('../actions/MarkdownSelectionActions');
 var TextAreaSelectionMixin = require('../mixins/TextAreaSelectionMixin');
 var ButtonManagerMixin = require('../mixins/ButtonManagerMixin');
 var MarkdownEditorStore = require('../stores/MarkdownEditorStore');

@@ -1,7 +1,5 @@
 var MarkdownEditorActions = require('../actions/MarkdownEditorActions');
 var Reflux = require('reflux');
-
-var _timerClick;
 var _canClear = true;
 
 var TextAreaSelectionMixin = {
@@ -63,10 +61,6 @@ var TextAreaSelectionMixin = {
   _preventClearSelectionAfterSelectIfNeeded: function(e) {
     if (e.target !== null) {
       _canClear = false;
-      _timerClick = setTimeout(function() {
-        _canClear = true;
-        _timerClick = null;
-      }, 100);
     }
   }
 };
