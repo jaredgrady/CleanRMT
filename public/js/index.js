@@ -4,6 +4,9 @@ const formats = {
 	"pokesho": ["http://www.pokestadium.com/assets/img/sprites/misc/pokesho/", ".gif"],
 	"icons": ["http://www.pokestadium.com/assets/img/sprites/misc/icons/", ".png"],
 	"shuffle": ["http://media.pldh.net/pokemon/shuffle/", ".png", true],
+	"xyanimated": ["http://play.pokemonshowdown.com/sprites/xyani/", ".gif"],
+	"xy": ["http://play.pokemonshowdown.com/sprites/xy/", ".png"],
+	"smd": ["http://www.serebii.net/supermysterydungeon/pokemon/", ".png", true],
 };
 
 const dex = {
