@@ -1,6 +1,5 @@
 var React = require('react');
 var Entrybox = require('./entrybox').Entrybox;
-var Submitbutton = require('./submitbutton');
 var Imagemenu = require('./imagemenu');
 
 var Editor = React.createClass({
@@ -15,8 +14,7 @@ var Editor = React.createClass({
       <div className="editor">
        <Entrybox initialContent="" iconsSet="font-awesome" onContentChange={this._onContentChange}/>
        <span id ="result-box-area">
-        <Submitbutton markdownContent={this.state.content}/>
-        <Imagemenu />
+        <Imagemenu content={this.state.content} templateType={this.props.templateType}/>
        </span>
       </div>
     );

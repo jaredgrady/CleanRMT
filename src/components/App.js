@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 var NavBar = require('./navbar');
 var Header = require('./header');
-var Teamentry = require('./teamentry');
 var Usage = require('./usage');
+var Generator = require('./generator');
 
 export default class App extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class App extends Component {
         <Header />
         <NavBar />
         <Usage />
-        <Teamentry />
+        <Generator />
       </div>
     );
   }

@@ -102,6 +102,10 @@ body {
     display: inline-block;
 }
 
+#template-type {
+    margin-left: 1%;
+}
+
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
@@ -125,7 +129,7 @@ body {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
-    display:block;
+    display:inline !important;
 }
 
 #usage {

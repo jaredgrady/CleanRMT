@@ -17,8 +17,8 @@ function hash (pokemon) {//gets dex number. eventually add support for megas
 	return pokemon;
 }
 
-var importTeam = function(text, format) {
-	if (!formats[format] || !text) return "error";
+var importTeam = function(text, format, templateType) {
+	if (!formats[format] || !text) return format + "///" + text;
 	let lines = text.split('\n');
 	let data = [];
 	let pokemon = [];

@@ -9,10 +9,12 @@ var Submitbutton = React.createClass({
 
   handleClick: function() {
     var content = this.props.markdownContent;
+    var imageType = this.props.imageType;
+    var templateType = this.props.templateType;
     if (content === null) {
       alert('You must enter a team.');
     } else {          //To-do: Add image changing support
-      content = handleTeam.importTeam(content, 'icons');
+      content = handleTeam.importTeam(content, imageType, templateType);
       this.setState({content: content});
     }
   },
