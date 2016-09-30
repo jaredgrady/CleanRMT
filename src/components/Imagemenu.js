@@ -1,5 +1,5 @@
 var React = require('react');
-var Submitbutton = require('./submitbutton');
+var Submitbutton = require('./Submitbutton');
 
 var Imagemenu = React.createClass({
   getInitialState: function() {
@@ -27,7 +27,7 @@ var Imagemenu = React.createClass({
   render: function () {
     return (
      <div>
-     <Submitbutton markdownContent={this.props.content} imageType={this.state.imageType} templateType={this.props.templateType}/>
+     <Submitbutton markdownContent={this.props.content} imageType={this.state.imageType} showProcess={this.props.showProcess}/>
       <span className="dropdown">
        <button onClick={this.handleClick} className ='btn btn-success dropbtn'>Image Type: {this.state.imageType}</button>
         <div id="myDropdown" className={this.state.display}>

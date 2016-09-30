@@ -1,5 +1,5 @@
 var React = require('react');
-var Resultbox = require('./resultbox');
+var Resultbox = require('./Resultbox');
 var handleTeam = require('../../public/js/index.js');
 
 var Submitbutton = React.createClass({
@@ -9,12 +9,15 @@ var Submitbutton = React.createClass({
 
   handleClick: function() {
     var content = this.props.markdownContent;
-    var imageType = this.props.imageType;
-    var templateType = this.props.templateType;
+    var options = {
+      imgFormat: this.props.imageType,
+      process: this.props.showProcess,
+      processFormat: this.props.imageType
+    };
     if (content === null) {
       alert('You must enter a team.');
-    } else {          //To-do: Add image changing support
-      content = handleTeam.importTeam(content, imageType, templateType);
+    } else {
+      content = handleTeam.rmt(content, options);
       this.setState({content: content});
     }
   },

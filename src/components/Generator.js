@@ -1,5 +1,5 @@
 var React = require('react');
-var Templatetype = require('./templatetype');
+var Options = require('./Options');
 
 var Generator = React.createClass({
 
@@ -12,7 +12,7 @@ var Generator = React.createClass({
   render: function() {
     return (
      <div>
-      <Templatetype />
+      <Options />
      </div>
     );
   }
