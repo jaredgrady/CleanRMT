@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-var NavBar = require('./Navbar');
+var NavBar = require('./NavBar');
 var Header = require('./Header');
 var Usage = require('./Usage');
 var Generator = require('./Generator');

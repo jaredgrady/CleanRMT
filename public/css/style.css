@@ -77,7 +77,8 @@ body {
 }
 
 .submit-button {
-    margin-left: 5%;
+    margin-left: 0%;
+    margin-right: 1%;
 }
 
 /* Dropdown Button */
@@ -102,8 +103,8 @@ body {
     display: inline-block;
 }
 
-#template-type {
-    margin-left: 1%;
+.template-type {
+    margin-left: 1% !important;
 }
 
 /* Dropdown Content (Hidden by Default) */

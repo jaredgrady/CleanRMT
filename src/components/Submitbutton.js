@@ -12,7 +12,14 @@ var Submitbutton = React.createClass({
     var options = {
       imgFormat: this.props.imageType,
       process: this.props.showProcess,
-      processFormat: this.props.imageType
+      processFormat: this.props.imageType,
+      tfont: this.props.font,
+      align: this.props.align,
+      size: this.props.size,
+      bold: this.props.bold,
+      underlined: this.props.underlined,
+      setFormat: 3,
+      font: this.props.font
     };
     if (content === null) {
       alert('You must enter a team.');
@@ -26,7 +33,7 @@ var Submitbutton = React.createClass({
     return (
       <span>
        <Resultbox result={this.state.content}/>
-       <button className='btn btn-success submit-button' onClick={this.handleClick}>Submit</button>
+       <button className='btn btn-primary submit-button' onClick={this.handleClick}>Submit</button>
      </span>
     );
   }

@@ -142,6 +142,7 @@ function toTitle (text, options) { //This function is a disaster lol
 }
 
 function rmt (team, options) {
+	console.log(options);
 	let data = packTeam(team);
 	let f = "[FONT=" + options.font + "]";
 	let fe = "[/FONT]";
