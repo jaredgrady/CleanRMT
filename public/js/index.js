@@ -1,54 +1,7 @@
 "use strict";
 
 const dex = require('./dex.js').dex;
-
-const megas = {
-	"abomasnow": "abomasite",
-	"absol": "absolite",
-	"aerodactyl": "aerodactylite",
-	"aggron": "aggronite",
-	"alakazam": "alakanite",
-	"altaria": "altarianite",
-	"ampharos": "ampharosite",
-	"audino": "audinite",
-	"banette": "banettite",
-	"beedrill": "beedrillite",
-	"blastoise": "blastoisinite",
-	"blaziken": "blazikenite",
-	"camerupt": "camperuptite",
-	"charizard": ["charizardite x", "charizardite y"],
-	"diancie": "diancite",
-	"gallade": "galladite",
-	"garchomp": "garchompite",
-	"gardevoir": "gardevoirite",
-	"gengar": "gengarite",
-	"glalie": "glaitite",
-	"gyarados": "gyaradosite",
-	"heracross": "heracronite",
-	"houndoom": "houndoominite",
-	"kangaskhan": "kangaskhanite",
-	"latios": "latiosite",
-	"latias": "latiasite",
-	"lopunny": "lopunnite",
-	"lucario": "lucarionite",
-	"manectric": "manectite",
-	"mawile": "mawilite",
-	"medicham": "medichamite",
-	"metagross": "metagrossite",
-	"mewtwo": ["mewtwonite x", "mewtwonite y"],
-	"pidgeot": "pidgeotite",
-	"pinsir": "pinsirite",
-	"sableye": "sablenite",
-	"salamence": "salamencite",
-	"sceptile": "sceptilite",
-	"scizor": "scizorite",
-	"sharpedo": "sharpedonite",
-	"slowbro": "slowbronite",
-	"steelix": "steelixite",
-	"swampert": "swampertite",
-	"tyranitar": "tyranitarite",
-	"venusaur": "venusaurite"
-};
+const megas = require('./dex.js').megas;
 
 const formats = {
 	"pokesho": ["http://www.pokestadium.com/assets/img/sprites/misc/pokesho/", ".gif"],
@@ -149,7 +102,7 @@ function rmt (team, options) {
 	let output = "";
 	output += "[center]" + getImgs(options.imgFormat, data) + "[/center]\n\n" +
 		toTitle("Introduction", options) + "\n\n" + f + "**Introduction goes here**" + fe + "\n\n";
-	if (options.process) output+= toTitle("Teambuilding Process", options) + "\n\n" + 
+	if (options.process) output+= toTitle("Teambuilding Process", options) + "\n\n" +
 		"[hide]" + buildingProcess(options.processFormat, data.pokemon, f, fe) + "[/hide]\n" +
 		"\n" +  toTitle("The Team", options) + "\n\n";
 	output += buildSets(data, options, f, fe);
@@ -164,7 +117,7 @@ function buildSets (data, options, f, fe) {
 	switch (options.setFormat) {
 	case 0: //default
 		for (let i = 0; i < data.pokemon.length; i++) {
-			output += "[" + options. align + "]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" + 
+			output += "[" + options. align + "]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" +
 				data.pokenames[i] + " @ " + data.items[i] + "\n" +
 				"Ability: " + data.abilities[i] + "\n" +
 				"EVs: " + data.evs[i] + "\n" +
@@ -178,7 +131,7 @@ function buildSets (data, options, f, fe) {
 	break;
 	case 1: //default with bold
 		for (let i = 0; i < data.pokemon.length; i++) {
-			output += "[LEFT]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" + 
+			output += "[LEFT]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" +
 				"[B]" + data.pokenames[i] + "[/B]" + (data.items[i] ? " @ " + data.items[i] : "") + "\n" +
 				"[B]Ability:[/B] " + data.abilities[i] + "\n" +
 				"[B]Nature:[/B] " + data.natures[i] + "\n" +
@@ -194,8 +147,8 @@ function buildSets (data, options, f, fe) {
 	break;
 	case 2: //trinitrotoluene
 		for (let i = 0; i < data.pokemon.length; i++) {
-			output += "[B][SIZE=2][LEFT][INDENT]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "[/INDENT]\n" + 
-				data.pokenames[i] + (data.items[i] ? " @ " + data.items[i] : "") + " | " + 
+			output += "[B][SIZE=2][LEFT][INDENT]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "[/INDENT]\n" +
+				data.pokenames[i] + (data.items[i] ? " @ " + data.items[i] : "") + " | " +
 				data.abilities[i] + "\n" +
 				data.natures[i] + " | " +
 				data.evs[i] + "\n" +
@@ -208,9 +161,9 @@ function buildSets (data, options, f, fe) {
 	break;
 	case 3: //Pearl
 		for (let i = 0; i < data.pokemon.length; i++) {
-			output += "[SIZE=2][CENTER]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" + 
-				(data.items[i] ? 
-					"@ [IMG]http://www.serebii.net/itemdex/sprites/" + data.items[i].toLowerCase().split(" ").join("") + ".png[/IMG]" : 
+			output += "[SIZE=2][CENTER]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" +
+				(data.items[i] ?
+					"@ [IMG]http://www.serebii.net/itemdex/sprites/" + data.items[i].toLowerCase().split(" ").join("") + ".png[/IMG]" :
 					"") + "\n" +
 				"[B]Ability-[/B] " + data.abilities[i] + "\n" +
 				"[B]EVs-[/B] " + data.evs[i].split(' / ').join(' | ') + "\n" +

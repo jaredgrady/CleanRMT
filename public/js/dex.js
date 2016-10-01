@@ -720,4 +720,53 @@ const dex = {
 	"Diancie": "719"
 };
 
+const megas = {
+	"abomasnow": "abomasite",
+	"absol": "absolite",
+	"aerodactyl": "aerodactylite",
+	"aggron": "aggronite",
+	"alakazam": "alakanite",
+	"altaria": "altarianite",
+	"ampharos": "ampharosite",
+	"audino": "audinite",
+	"banette": "banettite",
+	"beedrill": "beedrillite",
+	"blastoise": "blastoisinite",
+	"blaziken": "blazikenite",
+	"camerupt": "camperuptite",
+	"charizard": ["charizardite x", "charizardite y"],
+	"diancie": "diancite",
+	"gallade": "galladite",
+	"garchomp": "garchompite",
+	"gardevoir": "gardevoirite",
+	"gengar": "gengarite",
+	"glalie": "glaitite",
+	"gyarados": "gyaradosite",
+	"heracross": "heracronite",
+	"houndoom": "houndoominite",
+	"kangaskhan": "kangaskhanite",
+	"latios": "latiosite",
+	"latias": "latiasite",
+	"lopunny": "lopunnite",
+	"lucario": "lucarionite",
+	"manectric": "manectite",
+	"mawile": "mawilite",
+	"medicham": "medichamite",
+	"metagross": "metagrossite",
+	"mewtwo": ["mewtwonite x", "mewtwonite y"],
+	"pidgeot": "pidgeotite",
+	"pinsir": "pinsirite",
+	"sableye": "sablenite",
+	"salamence": "salamencite",
+	"sceptile": "sceptilite",
+	"scizor": "scizorite",
+	"sharpedo": "sharpedonite",
+	"slowbro": "slowbronite",
+	"steelix": "steelixite",
+	"swampert": "swampertite",
+	"tyranitar": "tyranitarite",
+	"venusaur": "venusaurite"
+};
+
 module.exports.dex = dex;
+module.exports.megas = megas;
