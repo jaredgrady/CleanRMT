@@ -133,6 +133,10 @@ body {
     display:inline !important;
 }
 
+.lower-button {
+    float:center;
+}
+
 #usage {
     padding-left: 20%;
     padding-right: 20%;

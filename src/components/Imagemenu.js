@@ -5,8 +5,8 @@ var Imagemenu = React.createClass({
   getInitialState: function() {
     return {
       display: 'dropdown-content',
-      b2: 'dropdown-content',
-      b3: 'dropdown-content',
+      boldMenu: 'dropdown-content',
+      underlineMenu: 'dropdown-content',
       imageType: 'icons',
       bold: false,
       underlined: false
@@ -15,25 +15,25 @@ var Imagemenu = React.createClass({
 
   handleClick: function() {
     if (this.state.display === 'dropdown-content') {
-      this.setState({display: 'dropdown-content show'});
+      this.setState({display: 'dropdown-content show lower-button'});
     } else {
       this.setState({display: 'dropdown-content'});
     }
   },
-  
-  handleClickB2: function() {
-    if (this.state.b2 === 'dropdown-content') {
-      this.setState({b2: 'dropdown-content show'});
+
+  handleClickboldMenu: function() {
+    if (this.state.boldMenu === 'dropdown-content') {
+      this.setState({boldMenu: 'dropdown-content show lower-button'});
     } else {
-      this.setState({b2: 'dropdown-content'});
+      this.setState({boldMenu: 'dropdown-content'});
     }
   },
-  
-  handleClickB3: function() {
-    if (this.state.b3 === 'dropdown-content') {
-      this.setState({b3: 'dropdown-content show'});
+
+  handleClickunderlineMenu: function() {
+    if (this.state.underlineMenu === 'dropdown-content') {
+      this.setState({underlineMenu: 'dropdown-content show lower-button'});
     } else {
-      this.setState({b3: 'dropdown-content'});
+      this.setState({underlineMenu: 'dropdown-content'});
     }
   },
 
@@ -43,29 +43,29 @@ var Imagemenu = React.createClass({
       display: 'dropdown-content'
     });
   },
-  
+
   setBold: function(bool) {
     this.setState({
       bold: bool,
-      b2: 'dropdown-content'
+      boldMenu: 'dropdown-content'
     });
   },
-  
+
   setUnder: function(bool) {
     this.setState({
       underlined: bool,
-      b3: 'dropdown-content'
+      underlineMenu: 'dropdown-content'
     });
   },
 
   render: function () {
     return (
      <div>
-     <Submitbutton 
-     markdownContent={this.props.content} 
-     imageType={this.state.imageType} 
-     font={this.props.font} 
-     align={this.props.align} 
+     <Submitbutton
+     markdownContent={this.props.content}
+     imageType={this.state.imageType}
+     font={this.props.font}
+     align={this.props.align}
      showProcess={this.props.showProcess}
      bold={this.state.bold}
      underlined={this.state.underlined}
@@ -73,29 +73,29 @@ var Imagemenu = React.createClass({
      />
       <span className="dropdown">
        <button onClick={this.handleClick} className ='btn btn-success dropbtn'>Image Type: {this.state.imageType}</button>
-        <div id="myDropdown" className={this.state.display}>
-           <span onClick={()=>this.chooseImageType('icons')}>Icon</span>
-           <span onClick={()=>this.chooseImageType('shuffle')}>Shuffle</span>
-           <span onClick={()=>this.chooseImageType('pokesho')}>Pokesho</span>
-           <span onClick={()=>this.chooseImageType('xyanimated')}>XY animated</span>
-           <span onClick={()=>this.chooseImageType('xy')}>XY</span>
-           <span onClick={()=>this.chooseImageType('smd')}>Mystery Dungeon</span>
-          </div>
+       <div className={this.state.display}>
+          <span onClick={()=>this.chooseImageType('icons')}>Icon</span>
+          <span onClick={()=>this.chooseImageType('shuffle')}>Shuffle</span>
+          <span onClick={()=>this.chooseImageType('pokesho')}>Pokesho</span>
+          <span onClick={()=>this.chooseImageType('xyanimated')}>XY animated</span>
+          <span onClick={()=>this.chooseImageType('xy')}>XY</span>
+          <span onClick={()=>this.chooseImageType('smd')}>Mystery Dungeon</span>
+         </div>
       </span>
-            <span className="dropdown template-type">
-       <button onClick={this.handleClickB2} className ='btn btn-success dropbtn'>
+      <span className="dropdown template-type">
+       <button onClick={this.handleClickboldMenu} className ='btn btn-success dropbtn'>
         Bold Headers: {this.state.bold ? 'Yes' : 'No'}
        </button>
-        <div className={this.state.b2}>
+        <div className={this.state.boldMenu}>
            <span onClick={()=>this.setBold(true)}>Yes</span>
            <span onClick={()=>this.setBold(false)}>No</span>
           </div>
       </span>
       <span className="dropdown template-type">
-       <button onClick={this.handleClickB3} className ='btn btn-success dropbtn'>
+       <button onClick={this.handleClickunderlineMenu} className ='btn btn-success dropbtn'>
         Underline Headers: {this.state.underlined ? 'Yes' : 'No'}
        </button>
-        <div className={this.state.b3}>
+        <div className={this.state.underlineMenu}>
            <span onClick={()=>this.setUnder(true)}>Yes</span>
            <span onClick={()=>this.setUnder(false)}>No</span>
           </div>
