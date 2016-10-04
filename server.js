@@ -17,6 +17,11 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/favicon.ico', function(req, res) {
+  res.sendFile(__dirname + '/favicon.ico');
+});
+
+
 app.get('/public/css/style.css', function(req, res){
   res.sendFile(__dirname + '/public/css/style.css');
 });
