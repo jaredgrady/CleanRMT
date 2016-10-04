@@ -96,16 +96,16 @@ var Options = React.createClass({
   render: function () {
     return (
      <div>
-      <span className="dropdown template-type">
+      <span className="dropdown template-type-top">
        <button onClick={this.handleClickprocessMenu} className ='btn btn-success dropbtn'>
-        Build process: {this.state.showProcess ? 'Yes' : 'No'}
+        Build Process: {this.state.showProcess ? 'Yes' : 'No'}
        </button>
         <div className={this.state.processMenu}>
            <span onClick={()=>this.showBuildProcess(true)}>Yes</span>
            <span onClick={()=>this.showBuildProcess(false)}>No</span>
           </div>
       </span>
-      <span className="dropdown template-type">
+      <span className="dropdown template-type-top">
        <button onClick={this.handleClickfontMenu} className ='btn btn-success dropbtn'>
         <i className="fa fa-font" aria-hidden="true"></i> {this.state.font}
        </button>
@@ -119,7 +119,7 @@ var Options = React.createClass({
            <span onClick={()=>this.chooseFont('Verdana')}>Verdana</span>
           </div>
       </span>
-      <span className="dropdown template-type">
+      <span className="dropdown template-type-top">
        <button onClick={this.handleClickalignMenu} className ='btn btn-success dropbtn'>
         Align: {this.state.align}
        </button>
@@ -129,9 +129,9 @@ var Options = React.createClass({
            <span onClick={()=>this.setAlign('Center')}>Center</span>
           </div>
       </span>
-      <span className="dropdown template-type">
+      <span className="dropdown template-type-top">
        <button onClick={this.handleClicksizeMenu} className ='btn btn-success dropbtn'>
-        Title Size: {this.state.size}
+        Header Size: {this.state.size}
        </button>
         <div className={this.state.sizeMenu}>
            <span onClick={()=>this.setSize(1)}>1</span>
@@ -142,9 +142,9 @@ var Options = React.createClass({
            <span onClick={()=>this.setSize(6)}>6</span>
           </div>
       </span>
-      <span className="dropdown template-type">
+      <span className="dropdown template-type-top">
        <button onClick={this.handleClicksetFormat} className ='btn btn-success dropbtn'>
-        Set Format: {['Importable', 'Bolded Importable', 'Alternative', 'Pearl'][this.state.format]}
+        Set Format: {['Importable', 'Bold Importable', 'Alt', 'Pearl'][this.state.format]}
        </button>
         <div className={this.state.setFormat}>
            <span onClick={()=>this.changeFormat(0)}>Importable</span>

@@ -10,7 +10,7 @@ var Header = React.createClass({
   render: function() {
     return (
      <div className = "jumbotron" >
-      <h1>RMT-Template</h1>
+      <h1><center>CleanRMT</center></h1>
      </div>
     );
   }

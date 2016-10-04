@@ -1,5 +1,13 @@
 var React = require('react');
 var Submitbutton = require('./Submitbutton');
+var imageOptions = {
+  'pokesho': 'Pokesho',
+  'icons': 'Icons',
+  'shuffle': 'Shuffle',
+  'xyanimated': 'XY Animated',
+  'xystatic': 'XY',
+  'smd': 'Super Mystery Dungeon'
+};
 
 var Imagemenu = React.createClass({
   getInitialState: function() {
@@ -38,7 +46,7 @@ var Imagemenu = React.createClass({
       this.setState({underlineMenu: 'dropdown-content'});
     }
   },
-  
+
   handleClicksetHeadFont: function() {
     if (this.state.fontMenu === 'dropdown-content') {
       this.setState({fontMenu: 'dropdown-content show lower-button'});
@@ -67,7 +75,7 @@ var Imagemenu = React.createClass({
       underlineMenu: 'dropdown-content'
     });
   },
-  
+
   setHeadFont: function(font) {
     this.setState({
       tfont: font,
@@ -91,7 +99,7 @@ var Imagemenu = React.createClass({
      tfont={this.state.tfont}
      />
       <span className="dropdown">
-       <button onClick={this.handleClick} className ='btn btn-success dropbtn'> <i className="fa fa-image" aria-hidden="true"></i> Type: {this.state.imageType}</button>
+       <button onClick={this.handleClick} className ='btn btn-success dropbtn'> <i className="fa fa-image" aria-hidden="true"></i> Type: {imageOptions[this.state.imageType]}</button>
        <div className={this.state.display}>
           <span onClick={()=>this.chooseImageType('icons')}>Icon</span>
           <span onClick={()=>this.chooseImageType('shuffle')}>Shuffle</span>
@@ -103,7 +111,7 @@ var Imagemenu = React.createClass({
       </span>
       <span className="dropdown template-type">
        <button onClick={this.handleClickboldMenu} className ='btn btn-success dropbtn'>
-        <i className="fa fa-bold" aria-hidden="true"></i> Titles: {this.state.bold ? 'Yes' : 'No'}
+        <i className="fa fa-bold" aria-hidden="true"></i> Headers: {this.state.bold ? 'Yes' : 'No'}
        </button>
         <div className={this.state.boldMenu}>
            <span onClick={()=>this.setBold(true)}>Yes</span>
@@ -112,7 +120,7 @@ var Imagemenu = React.createClass({
       </span>
       <span className="dropdown template-type">
        <button onClick={this.handleClickunderlineMenu} className ='btn btn-success dropbtn'>
-        <i className="fa fa-underline" aria-hidden="true"></i> Titles: {this.state.underlined ? 'Yes' : 'No'}
+        <i className="fa fa-underline" aria-hidden="true"></i> Headers: {this.state.underlined ? 'Yes' : 'No'}
        </button>
         <div className={this.state.underlineMenu}>
            <span onClick={()=>this.setUnder(true)}>Yes</span>
@@ -121,7 +129,7 @@ var Imagemenu = React.createClass({
       </span>
       <span className="dropdown template-type">
        <button onClick={this.handleClicksetHeadFont} className ='btn btn-success dropbtn'>
-        Title <i className="fa fa-font" aria-hidden="true"></i> {this.state.tfont}
+        Header <i className="fa fa-font" aria-hidden="true"></i> {this.state.tfont}
        </button>
         <div className={this.state.fontMenu}>
            <span onClick={()=>this.setHeadFont('Arial')}>Arial</span>

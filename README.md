@@ -1,8 +1,8 @@
-# RMT-Template
+# CleanRMT
 
-[![Build Status](https://travis-ci.org/TheFenderStory/rmt-template.svg?branch=master)](https://travis-ci.org/TheFenderStory/rmt-template)
-[![dependencies Status](https://david-dm.org/thefenderstory/rmt-template/status.svg)](https://david-dm.org/thefenderstory/rmt-template)
-[![devDependencies Status](https://david-dm.org/thefenderstory/rmt-template/dev-status.svg)](https://david-dm.org/thefenderstory/rmt-template?type=dev)
+[![Build Status](https://travis-ci.org/TheFenderStory/cleanrmt.svg?branch=master)](https://travis-ci.org/TheFenderStory/cleanrmt)
+[![dependencies Status](https://david-dm.org/thefenderstory/cleanrmt/status.svg)](https://david-dm.org/thefenderstory/cleanrmt)
+[![devDependencies Status](https://david-dm.org/thefenderstory/cleanrmt/dev-status.svg)](https://david-dm.org/thefenderstory/cleanrmt?type=dev)
 
 A simple template for Smogon RMT posts.
 
