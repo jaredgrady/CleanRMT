@@ -1,5 +1,5 @@
 var React = require('react');
-var Resultbox = require('./resultbox');
+var Resultbox = require('./Resultbox');
 var handleTeam = require('../../public/js/index.js');
 
 var Submitbutton = React.createClass({
@@ -9,10 +9,22 @@ var Submitbutton = React.createClass({
 
   handleClick: function() {
     var content = this.props.markdownContent;
+    var options = {
+      imgFormat: this.props.imageType,
+      process: this.props.showProcess,
+      processFormat: 'icons', //todo: add support for changing this
+      tfont: this.props.tfont,
+      align: this.props.align,
+      size: this.props.size,
+      bold: this.props.bold,
+      underlined: this.props.underlined,
+      setFormat: this.props.format,
+      font: this.props.font
+    };
     if (content === null) {
       alert('You must enter a team.');
-    } else {          //To-do: Add image changing support
-      content = handleTeam.importTeam(content, 'icons');
+    } else {
+      content = handleTeam.rmt(content, options);
       this.setState({content: content});
     }
   },
@@ -21,7 +33,7 @@ var Submitbutton = React.createClass({
     return (
       <span>
        <Resultbox result={this.state.content}/>
-       <button className='btn btn-success submit-button' onClick={this.handleClick}>Submit</button>
+       <button className='btn btn-primary submit-button' onClick={this.handleClick}>Submit</button>
      </span>
     );
   }

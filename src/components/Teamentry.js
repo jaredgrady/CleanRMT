@@ -1,7 +1,6 @@
 var React = require('react');
-var Entrybox = require('./entrybox').Entrybox;
-var Submitbutton = require('./submitbutton');
-var Imagemenu = require('./imagemenu');
+var Entrybox = require('./Entrybox').Entrybox;
+var Imagemenu = require('./Imagemenu');
 
 var Editor = React.createClass({
   getInitialState: function() {
@@ -15,8 +14,14 @@ var Editor = React.createClass({
       <div className="editor">
        <Entrybox initialContent="" iconsSet="font-awesome" onContentChange={this._onContentChange}/>
        <span id ="result-box-area">
-        <Submitbutton markdownContent={this.state.content}/>
-        <Imagemenu />
+        <Imagemenu
+        content={this.state.content}
+        showProcess={this.props.showProcess}
+        font={this.props.font}
+        align={this.props.align}
+        size={this.props.size}
+		format={this.props.format}
+        />
        </span>
       </div>
     );

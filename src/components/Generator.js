@@ -1,5 +1,7 @@
 var React = require('react');
-var Header = React.createClass({
+var Options = require('./Options');
+
+var Generator = React.createClass({
 
   getInitialState: function() {
     return {
@@ -9,11 +11,11 @@ var Header = React.createClass({
 
   render: function() {
     return (
-     <div className = "jumbotron" >
-      <h1><center>CleanRMT</center></h1>
+     <div>
+      <Options />
      </div>
     );
   }
 });
 
-module.exports = Header;
+module.exports = Generator;
