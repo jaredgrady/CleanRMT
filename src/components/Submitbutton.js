@@ -12,13 +12,13 @@ var Submitbutton = React.createClass({
     var options = {
       imgFormat: this.props.imageType,
       process: this.props.showProcess,
-      processFormat: this.props.imageType,
-      tfont: this.props.font,
+      processFormat: 'icons', //todo: add support for changing this
+      tfont: this.props.tfont,
       align: this.props.align,
       size: this.props.size,
       bold: this.props.bold,
       underlined: this.props.underlined,
-      setFormat: 3,
+      setFormat: this.props.format,
       font: this.props.font
     };
     if (content === null) {

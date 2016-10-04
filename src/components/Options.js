@@ -8,10 +8,12 @@ var Options = React.createClass({
       fontMenu: 'dropdown-content',
       alignMenu: 'dropdown-content',
       sizeMenu: 'dropdown-content',
+      setFormat: 'dropdown-content',
       showProcess: true,
       font: 'Verdana',
-      align: 'CENTER',
-      size: 3
+      align: 'Center',
+      size: 3,
+      format: 0
     };
   },
 
@@ -36,6 +38,14 @@ var Options = React.createClass({
       this.setState({alignMenu: 'dropdown-content show'});
     } else {
       this.setState({alignMenu: 'dropdown-content'});
+    }
+  },
+
+  handleClicksetFormat: function() {
+    if (this.state.setFormat === 'dropdown-content') {
+      this.setState({setFormat: 'dropdown-content show'});
+    } else {
+      this.setState({setFormat: 'dropdown-content'});
     }
   },
 
@@ -75,6 +85,14 @@ var Options = React.createClass({
     });
   },
 
+  changeFormat: function(format) {
+    this.setState({
+      format: format,
+      setFormat: 'dropdown-content'
+    });
+  },
+
+
   render: function () {
     return (
      <div>
@@ -89,7 +107,7 @@ var Options = React.createClass({
       </span>
       <span className="dropdown template-type">
        <button onClick={this.handleClickfontMenu} className ='btn btn-success dropbtn'>
-        Font: {this.state.font}
+        <i className="fa fa-font" aria-hidden="true"></i> {this.state.font}
        </button>
         <div className={this.state.fontMenu}>
            <span onClick={()=>this.chooseFont('Arial')}>Arial</span>
@@ -106,14 +124,14 @@ var Options = React.createClass({
         Align: {this.state.align}
        </button>
         <div className={this.state.alignMenu}>
-           <span onClick={()=>this.setAlign('LEFT')}>Left</span>
-           <span onClick={()=>this.setAlign('RIGHT')}>Right</span>
-           <span onClick={()=>this.setAlign('CENTER')}>Center</span>
+           <span onClick={()=>this.setAlign('Left')}>Left</span>
+           <span onClick={()=>this.setAlign('Right')}>Right</span>
+           <span onClick={()=>this.setAlign('Center')}>Center</span>
           </div>
       </span>
       <span className="dropdown template-type">
        <button onClick={this.handleClicksizeMenu} className ='btn btn-success dropbtn'>
-        Header Size: {this.state.size}
+        Title Size: {this.state.size}
        </button>
         <div className={this.state.sizeMenu}>
            <span onClick={()=>this.setSize(1)}>1</span>
@@ -124,11 +142,23 @@ var Options = React.createClass({
            <span onClick={()=>this.setSize(6)}>6</span>
           </div>
       </span>
+      <span className="dropdown template-type">
+       <button onClick={this.handleClicksetFormat} className ='btn btn-success dropbtn'>
+        Set Format: {['Importable', 'Bolded Importable', 'Alternative', 'Pearl'][this.state.format]}
+       </button>
+        <div className={this.state.setFormat}>
+           <span onClick={()=>this.changeFormat(0)}>Importable</span>
+           <span onClick={()=>this.changeFormat(1)}><i className="fa fa-bold" aria-hidden="true"></i> Importable</span>
+           <span onClick={()=>this.changeFormat(2)}>Alternative</span>
+           <span onClick={()=>this.changeFormat(3)}>Pearl</span>
+          </div>
+      </span>
       <Teamentry
       showProcess={this.state.showProcess}
       font={this.state.font}
       align={this.state.align}
       size={this.state.size}
+      format={this.state.format}
       />
      </div>
     );

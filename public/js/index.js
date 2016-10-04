@@ -1,7 +1,14 @@
 "use strict";
 
-const dex = require('./dex.js').dex;
-const megas = require('./dex.js').megas;
+/* * * * *
+ *
+ * This is the file where the actual building of the BBCode is done
+ * Most of the code is sub-optimal, and I was going for function over form. Sorry.
+ *
+ * * * * */
+
+const dex = require('./data/dex.json');
+const megas = require('./data/megas.json');
 
 const formats = {
 	"pokesho": ["http://www.pokestadium.com/assets/img/sprites/misc/pokesho/", ".gif"],
@@ -12,17 +19,107 @@ const formats = {
 	"smd": ["http://www.serebii.net/supermysterydungeon/pokemon/", ".png", "serebii"],
 };
 
-function hash (pokemon, format) {//gets dex number. eventually add support for megas
+function hash (pokemon, format) {//gets dex number
 	pokemon = pokemon[0].toUpperCase() + pokemon.substr(1);
 	if (dex[pokemon]) return dex[pokemon];
 	if (~pokemon.indexOf("-")) {
 		let data = dex[pokemon.substr(0, pokemon.indexOf("-")).trim()];
-		console.log(pokemon[pokemon.indexOf("-") + 1]);
 		if (format === "serebii") data += "-" + pokemon[pokemon.indexOf("-") + 1];
 		if (format === "paraiso" && ~pokemon.indexOf("mega")) data += "-mega"; //todo: add support for formes
 		return data;
 	}
 	return pokemon;
+}
+
+function removeNick (line) {
+	if (!~line.indexOf('(')) return line.trim();
+	let start = line.indexOf('(') + 1;
+	let len = line.indexOf(')') - start;
+	line = line.substr(start, len).trim();
+	return line;
+}
+
+function checkMega (line) {
+	console.log(line)
+	let pokemon = line[0].toLowerCase();
+	if (!line[1]) return line[0]; //no item, its not mega
+	let item = line[1].toLowerCase().trim();
+	if (!megas[pokemon]) return line[0];
+	if (megas[pokemon]) {
+		if (typeof(megas[pokemon]) !== "object" && megas[pokemon] === item) {
+			return line[0] + '-Mega';
+		} else if (typeof(megas[pokemon]) === "object") {
+			if (megas[pokemon][0] === item) return line[0] + '-Mega-X';
+			else if (megas[pokemon][1] === item) return line[0] + '-Mega-Y';
+		} else {
+			return line[0];
+		}
+	}
+}
+
+function packTeam (importable) {
+	let team = {
+		"pokemon": [],
+		"pokenames": [],
+		"items": [],
+		"evs": [],
+		"abilities": [],
+		"natures": [],
+		"moves": [],
+		"ivs": []
+	};
+	team.importable = importable;
+	let lines = importable.split('\n');
+	let data = [];
+	let dataIndex = 0;
+	data.push([lines[0]]);
+	for (let i = 1; i < lines.length; i++) {
+		if (lines[i].length < 2) continue;
+		if (lines[i-1].length < 2) {
+			dataIndex++;
+			data.push([lines[i]]);
+		} else {
+			data[dataIndex].push(lines[i].trim());
+		}
+	}
+	for (let j = 0; j < data.length; j++) {
+		for (let k = 0; k < data[j].length; k++) {
+			let l = data[j][k];
+			if (k === 0) {
+				let pokeno = team.pokemon.length;
+				if (pokeno > team.evs.length) team.evs.push("No EVs");
+				if (pokeno > team.abilities.length) team.abilities.push("No Ability");
+				if (pokeno > team.natures.length) team.natures.push("No Nature");
+				if (pokeno > team.ivs.length) team.ivs.push(false);
+				let line = l.split(" @ ");
+				team.pokenames.push(line[0]);
+				line[0] = removeNick(line[0]);
+				team.pokemon.push(checkMega(line));
+				line[1] ? team.items.push(line[1].trim()) : team.items.push(false);
+			} else if (~l.indexOf("EVs: ")) {
+				team.evs.push(l.substr(l.indexOf(' ')).trim());
+			} else if (~l.indexOf("Ability: ")) {
+				team.abilities.push(l.substr(l.indexOf(' ')).trim());
+			} else if (~l.indexOf("IVs: ")) {
+				team.ivs.push(l.substr(l.indexOf(' ')).trim());
+			} else if (~l.indexOf("Nature")) {
+				team.natures.push(l.substr(0, l.indexOf(' ')).trim());
+			} else if (~l.indexOf("- ")) {
+				let pokeno = team.pokemon.length -1;
+				if (team.moves[pokeno]) {
+					team.moves[pokeno].push(l.substr(l.indexOf(" ")).trim());
+				} else {
+					team.moves.push([l.substr(l.indexOf(" ")).trim()]);
+				}
+			}
+		}
+	}
+	let pokeno = team.pokemon.length;
+	if (pokeno > team.evs.length) team.evs.push("No EVs");
+	if (pokeno > team.abilities.length) team.abilities.push("No Ability");
+	if (pokeno > team.natures.length) team.natures.push("No Nature");
+	if (pokeno > team.ivs.length) team.ivs.push(false);
+	return team;
 }
 
 function getImgs (format, team) {
@@ -42,46 +139,6 @@ function getImg (format, pokemon) {
 	return output;
 }
 
-function buildingProcess (format, pokemon, f, fe) {
-	let output = ["","","","","",""];
-	console.log(output);
-	for (let i = 0; i < pokemon.length; i++) {
-		let img = getImg(format, pokemon[i].toLowerCase());
-		for (let j = i; j < pokemon.length; j++) {
-			output[j] += img;
-		}
-	}
-	for (let k = 0; k < output.length; k++) {
-		output[k] += "\n" + f + "**Why did you choose this pokemon?**" + fe + "\n";
-	}
-	return output.join("");
-}
-
-function removeNick (line) {
-	if (!~line.indexOf('(')) return line.trim();
-	let start = line.indexOf('(') + 1;
-	let len = line.indexOf(')') - start;
-	line = line.substr(start, len).trim();
-	return line;
-}
-
-function checkMega (line) {
-	let pokemon = line[0].toLowerCase();
-	let item = line[1].toLowerCase().trim();
-	console.log(line[0])
-	if (!megas[pokemon]) return line[0];
-	if (megas[pokemon]) {
-		if (typeof(megas[pokemon]) !== "object" && megas[pokemon] === item) {
-			return line[0] + '-Mega';
-		} else if (typeof(megas[pokemon]) === "object") {
-			if (megas[pokemon][0] === item) return line[0] + '-Mega-X';
-			else if (megas[pokemon][1] === item) return line[0] + '-Mega-Y';
-		} else {
-			return line[0];
-		}
-	}
-}
-
 function toTitle (text, options) { //This function is a disaster lol
 	let output = "[" + options.align + "][FONT=" + options.tfont + "][SIZE=" + options.size + "]";
 	if (options.bold) output += "[B]";
@@ -94,26 +151,22 @@ function toTitle (text, options) { //This function is a disaster lol
 	return output;
 }
 
-function rmt (team, options) {
-	console.log(options);
-	let data = packTeam(team);
-	let f = "[FONT=" + options.font + "]";
-	let fe = "[/FONT]";
-	let output = "";
-	output += "[center]" + getImgs(options.imgFormat, data) + "[/center]\n\n" +
-		toTitle("Introduction", options) + "\n\n" + f + "**Introduction goes here**" + fe + "\n\n";
-	if (options.process) output+= toTitle("Teambuilding Process", options) + "\n\n" +
-		"[hide]" + buildingProcess(options.processFormat, data.pokemon, f, fe) + "[/hide]\n" +
-		"\n" +  toTitle("The Team", options) + "\n\n";
-	output += buildSets(data, options, f, fe);
-	output += toTitle("Conclusion", options) + "\n\n" + f + "**Conclusion goes here**" + fe + "\n\n" +
-		"[hide=Importable]" + data.importable + "[/hide]";
-	return output;
+function buildingProcess (format, pokemon, f, fe) {
+	let output = ["","","","","",""];
+	for (let i = 0; i < pokemon.length; i++) {
+		let img = getImg(format, pokemon[i].toLowerCase());
+		for (let j = i; j < pokemon.length; j++) {
+			output[j] += img;
+		}
+	}
+	for (let k = 0; k < output.length; k++) {
+		output[k] += "\n" + f + "**Why did you choose this pokemon?**" + fe + "\n";
+	}
+	return output.join("");
 }
 
 function buildSets (data, options, f, fe) {
 	let output = "";
-	console.log(options.setFormat);
 	switch (options.setFormat) {
 	case 0: //default
 		for (let i = 0; i < data.pokemon.length; i++) {
@@ -163,8 +216,8 @@ function buildSets (data, options, f, fe) {
 		for (let i = 0; i < data.pokemon.length; i++) {
 			output += "[SIZE=2][CENTER]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" +
 				(data.items[i] ?
-					"@ [IMG]http://www.serebii.net/itemdex/sprites/" + data.items[i].toLowerCase().split(" ").join("") + ".png[/IMG]" :
-					"") + "\n" +
+					"@ [IMG]http://www.serebii.net/itemdex/sprites/" + data.items[i].toLowerCase().split(" ").join("") + ".png[/IMG]\n" :
+					"") +
 				"[B]Ability-[/B] " + data.abilities[i] + "\n" +
 				"[B]EVs-[/B] " + data.evs[i].split(' / ').join(' | ') + "\n" +
 				(data.ivs[i] ? "[B]IVs-[/B] " + data.ivs[i] + "\n" : "") +
@@ -180,70 +233,23 @@ function buildSets (data, options, f, fe) {
 	return output;
 }
 
-function packTeam (importable) {
-	let team = {
-		"pokemon": [],
-		"pokenames": [],
-		"items": [],
-		"evs": [],
-		"abilities": [],
-		"natures": [],
-		"moves": [],
-		"ivs": []
-	};
-	team.importable = importable;
-	let lines = importable.split('\n');
-	let data = [];
-	let dataIndex = 0;
-	data.push([lines[0]]);
-	for (let i = 1; i < lines.length; i++) {
-		if (lines[i].length < 2) continue;
-		if (lines[i-1].length < 2) {
-			dataIndex++;
-			data.push([lines[i]]);
-		} else {
-			data[dataIndex].push(lines[i].trim());
-		}
-	}
-	for (let j = 0; j < data.length; j++) {
-		for (let k = 0; k < data[j].length; k++) {
-			let l = data[j][k];
-			if (k === 0) {
-				let pokeno = team.pokemon.length;
-				if (pokeno > team.evs.length) team.evs.push("No EVs");
-				if (pokeno > team.abilities.length) team.abilities.push("No Ability");
-				if (pokeno > team.natures.length) team.natures.push("No Nature");
-				if (pokeno > team.ivs.length) team.ivs.push(false);
-				let line = l.split(" @ ");
-				team.pokenames.push(line[0]);
-				//team.pokemon.push();
-				line [0] = removeNick(line[0]);
-				team.pokemon.push(checkMega(line));
-				line[1] ? team.items.push(line[1].trim()) : team.items.push(false);
-			} else if (~l.indexOf("EVs: ")) {
-				team.evs.push(l.substr(l.indexOf(' ')).trim());
-			} else if (~l.indexOf("Ability: ")) {
-				team.abilities.push(l.substr(l.indexOf(' ')).trim());
-			} else if (~l.indexOf("IVs: ")) {
-				team.ivs.push(l.substr(l.indexOf(' ')).trim());
-			} else if (~l.indexOf("Nature")) {
-				team.natures.push(l.substr(0, l.indexOf(' ')).trim());
-			} else if (~l.indexOf("- ")) {
-				let pokeno = team.pokemon.length -1;
-				if (team.moves[pokeno]) {
-					team.moves[pokeno].push(l.substr(l.indexOf(" ")).trim());
-				} else {
-					team.moves.push([l.substr(l.indexOf(" ")).trim()]);
-				}
-			}
-			let pokeno = team.pokemon.length;
-			if (pokeno > team.evs.length) team.evs.push("No EVs");
-			if (pokeno > team.abilities.length) team.abilities.push("No Ability");
-			if (pokeno > team.natures.length) team.natures.push("No Nature");
-			if (pokeno > team.ivs.length) team.ivs.push(false);
-		}
-	}
-	return team;
+function rmt (team, options) {
+	console.log(options);
+	let data = packTeam(team);
+	options.align = options.align.toUpperCase(); //easier than doing this client-side
+	let f = "[FONT=" + options.font + "]";
+	let fe = "[/FONT]";
+	let output = "";
+	output += "[center]" + getImgs(options.imgFormat, data) + "[/center]\n\n" +
+		toTitle("Introduction", options) + "\n\n" + f + "**Introduction goes here**" + fe + "\n\n";
+	if (options.process) output+= toTitle("Teambuilding Process", options) + "\n\n" +
+		"[hide]" + buildingProcess(options.processFormat, data.pokemon, f, fe) + "[/hide]\n" +
+		"\n" +  toTitle("The Team", options) + "\n\n";
+	output += buildSets(data, options, f, fe);
+	output += toTitle("Conclusion", options) + "\n\n" + f + "**Conclusion goes here**" + fe + "\n\n" +
+		"[hide=Importable]" + data.importable + "[/hide]";
+	return output;
 }
 
-module.exports.rmt = rmt; //fender sucks
+module.exports.rmt = rmt;
+module.exports.getImgs = getImgs;
