@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A simple template for Smogon RMT posts",
   "scripts": {
+	"postinstall": "webpack -p --config ./webpack.prod.config.js --progress",
     "start": "node server.js",
     "test": "eslint src/**/*.js server.js",
     "build": "webpack -p"
