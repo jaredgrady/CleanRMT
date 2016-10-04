@@ -28,7 +28,22 @@
   "dependencies": {
     "markdown": "^0.5.0",
     "reflux": "^0.4.1",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+	"babel-core": "^6.7.7",
+	"babel-eslint": "^6.0.3",
+	"babel-loader": "^6.2.4",
+	"babel-preset-es2015": "^6.6.0",
+	"babel-preset-react": "^6.5.0",
+	"babel-preset-react-hmre": "^1.1.1",
+	"babel-preset-stage-1": "^6.5.0",
+	"eslint": "^2.8.0",
+	"eslint-plugin-react": "^5.0.1",
+	"express": "^4.13.4",
+	"react": "^15.0.1",
+	"react-dom": "^15.0.1",
+	"webpack": "^1.13.0",
+	"webpack-dev-middleware": "^1.6.1",
+	"webpack-hot-middleware": "^2.10.0"
   },
   "engine": {
     "node": "6.7.0"
