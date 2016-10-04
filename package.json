@@ -28,5 +28,8 @@
   "dependencies": {
     "markdown": "^0.5.0",
     "reflux": "^0.4.1"
+  },
+  "engine": {
+	  "node": "6.7.0"
   }
 }
