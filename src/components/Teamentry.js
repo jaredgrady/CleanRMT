@@ -13,7 +13,7 @@ var Editor = React.createClass({
     return (
       <div className="editor">
        <Entrybox initialContent="" iconsSet="font-awesome" onContentChange={this._onContentChange}/>
-       <span id ="result-box-area">
+       <span>
         <Imagemenu
         content={this.state.content}
         showProcess={this.props.showProcess}
