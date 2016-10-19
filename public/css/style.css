@@ -147,6 +147,10 @@ body {
     display: block;
 }
 
+.dropdown-content span:hover {
+	background-color: #aaada9;
+}
+
 /* Change color of dropdown links on hover */
 /*.dropdown-content span:hover {background-color: #f1f1f1}*/
 
