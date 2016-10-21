@@ -1,11 +1,11 @@
 'use strict';
-
 const config = require('./webpack.config');
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const favicon = require('serve-favicon');
+const helmet = require('helmet');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +13,7 @@ const port = process.env.PORT || 3000;
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
 app.use(webpackHotMiddleware(compiler));
+app.use(helmet());
 app.use(favicon(__dirname + '/favicon.ico'));
 
 app.get('/', function(req, res) {
