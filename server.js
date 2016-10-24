@@ -15,7 +15,7 @@ const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
 app.use(webpackHotMiddleware(compiler));
 app.use(helmet());
-app.use(compression())
+app.use(compression());
 app.use(favicon(__dirname + '/favicon.ico'));
 
 app.get('/', function(req, res) {
