@@ -212,6 +212,7 @@ var MarkdownEditorContent = React.createClass({displayName: 'MarkdownEditorConte
         className: 'md-editor-textarea',
         style: styleMarkdownTextArea,
         placeholder: 'Copy and paste your team here!',
+        title: 'Enter your team here!',
         onChange: this.onChange,
         onClick: this.clearSelection,
         onKeyUp: this.clearSelection}
