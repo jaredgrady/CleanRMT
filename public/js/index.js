@@ -246,7 +246,8 @@ function rmt (team, options) {
 		"[hide]" + buildingProcess(options.processFormat, data.pokemon, f, fe) + "[/hide]\n" +
 		"\n" +  toTitle("The Team", options) + "\n\n";
 	output += buildSets(data, options, f, fe);
-	output += toTitle("Conclusion", options) + "\n\n" + f + "**Conclusion goes here**" + fe + "\n\n" +
+	output += toTitle("Conclusion", options) + "\n\n" + f + "**Conclusion goes here**" + fe;
+	output += toTitle("Threatlist", options) + "\n\n" + f + "**Threatlist goes here**" + fe + "\n\n" +
 		"[hide=Importable]" + data.importable + "[/hide]";
 	return output;
 }
