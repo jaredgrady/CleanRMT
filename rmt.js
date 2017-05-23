@@ -160,7 +160,7 @@ function buildingProcess (format, pokemon, f, fe) {
 function buildSets (data, options, f, fe) {
 	let output = "";
 	switch (options.setFormat) {
-	case 0: //default
+	case 'importable': //default
 		for (let i = 0; i < data.pokemon.length; i++) {
 			output += "[" + options. align + "]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" +
 				data.pokenames[i] + " @ " + data.items[i] + "\n" +
@@ -174,7 +174,7 @@ function buildSets (data, options, f, fe) {
 		output += "[/" + options.align + "]\n" + f + "" + f + "**Why did you choose this pokemon? What does it do for your team?**" + fe + "" + fe + "\n\n";
 		}
 	break;
-	case 1: //default with bold
+	case 'bold-importable': //default with bold
 		for (let i = 0; i < data.pokemon.length; i++) {
 			output += "[LEFT]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" +
 				"[B]" + data.pokenames[i] + "[/B]" + (data.items[i] ? " @ " + data.items[i] : "") + "\n" +
@@ -190,7 +190,7 @@ function buildSets (data, options, f, fe) {
 		output += "[/LEFT]\n\n" + f + "**Why did you choose this pokemon? What does it do for your team?**" + fe + "\n\n";
 		}
 	break;
-	case 2: //trinitrotoluene
+	case 'alternative': //trinitrotoluene
 		for (let i = 0; i < data.pokemon.length; i++) {
 			output += "[B][SIZE=2][LEFT][INDENT]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "[/INDENT]\n" +
 				data.pokenames[i] + (data.items[i] ? " @ " + data.items[i] : "") + " | " +
@@ -204,7 +204,7 @@ function buildSets (data, options, f, fe) {
 		output += "[/B][/SIZE][/LEFT]" + f + "**Why did you choose this pokemon? What does it do for your team?**" + fe + "\n\n";
 		}
 	break;
-	case 3: //Pearl
+	case 'pearl': //Pearl
 		for (let i = 0; i < data.pokemon.length; i++) {
 			output += "[SIZE=2][CENTER]" + getImg(options.imgFormat, data.pokemon[i].toLowerCase()) + "\n" +
 				(data.items[i] ?
