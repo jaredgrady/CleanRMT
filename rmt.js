@@ -1,14 +1,7 @@
 "use strict";
 
-/* * * * *
- *
- * This is the file where the actual building of the BBCode is done
- * Most of the code is sub-optimal, and I was going for function over form. Sorry.
- *
- * * * * */
-
-const dex = require('./data/dex.json');
-const megas = require('./data/megas.json');
+const dex = require('./data/dex.js');
+const megas = require('./data/megas.js');
 
 const formats = {
 	"pokesho": ["http://www.pokestadium.com/assets/img/sprites/misc/pokesho/", ".gif"],
@@ -19,7 +12,7 @@ const formats = {
 	"smd": ["http://www.serebii.net/supermysterydungeon/pokemon/", ".png", "serebii"],
 };
 
-function hash (pokemon, format) {//gets dex number
+function hash(pokemon, format) {//gets dex number
 	pokemon = pokemon[0].toUpperCase() + pokemon.substr(1);
 	if (dex[pokemon]) return dex[pokemon];
 	if (~pokemon.indexOf("-")) {
@@ -31,7 +24,7 @@ function hash (pokemon, format) {//gets dex number
 	return pokemon;
 }
 
-function removeNick (line) {
+function removeNick(line) {
 	if (!~line.indexOf('(')) return line.trim();
 	let start = line.indexOf('(') + 1;
 	let len = line.indexOf(')') - start;
@@ -40,7 +33,6 @@ function removeNick (line) {
 }
 
 function checkMega (line) {
-	console.log(line)
 	let pokemon = line[0].toLowerCase();
 	if (!line[1]) return line[0]; //no item, its not mega
 	let item = line[1].toLowerCase().trim();
@@ -234,9 +226,12 @@ function buildSets (data, options, f, fe) {
 }
 
 function rmt (team, options) {
-	console.log(options);
 	let data = packTeam(team);
 	options.align = options.align.toUpperCase(); //easier than doing this client-side
+	options.size = parseInt(options.size);
+	options.process = options.process === 'true';
+	options.bold = options.bold === 'true';
+	options.underlined = options.underlined === 'true';
 	let f = "[FONT=" + options.font + "]";
 	let fe = "[/FONT]";
 	let output = "";
