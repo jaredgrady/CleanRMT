@@ -32,15 +32,15 @@ function removeNick(line) {
 	return line;
 }
 
-function checkMega (line) {
+function checkMega(line) {
 	let pokemon = line[0].toLowerCase();
 	if (!line[1]) return line[0]; //no item, its not mega
 	let item = line[1].toLowerCase().trim();
 	if (!megas[pokemon]) return line[0];
 	if (megas[pokemon]) {
-		if (typeof(megas[pokemon]) !== "object" && megas[pokemon] === item) {
+		if (typeof (megas[pokemon]) !== "object" && megas[pokemon] === item) {
 			return line[0] + '-Mega';
-		} else if (typeof(megas[pokemon]) === "object") {
+		} else if (typeof (megas[pokemon]) === "object") {
 			if (megas[pokemon][0] === item) return line[0] + '-Mega-X';
 			else if (megas[pokemon][1] === item) return line[0] + '-Mega-Y';
 		} else {
@@ -49,7 +49,7 @@ function checkMega (line) {
 	}
 }
 
-function packTeam (importable) {
+function packTeam(importable) {
 	let team = {
 		"pokemon": [],
 		"pokenames": [],
@@ -58,7 +58,7 @@ function packTeam (importable) {
 		"abilities": [],
 		"natures": [],
 		"moves": [],
-		"ivs": []
+		"ivs": [],
 	};
 	team.importable = importable;
 	let lines = importable.split('\n');
@@ -67,7 +67,7 @@ function packTeam (importable) {
 	data.push([lines[0]]);
 	for (let i = 1; i < lines.length; i++) {
 		if (lines[i].length < 2) continue;
-		if (lines[i-1].length < 2) {
+		if (lines[i - 1].length < 2) {
 			dataIndex++;
 			data.push([lines[i]]);
 		} else {
@@ -87,7 +87,9 @@ function packTeam (importable) {
 				team.pokenames.push(line[0]);
 				line[0] = removeNick(line[0]);
 				team.pokemon.push(checkMega(line));
+				/* eslint-disable */
 				line[1] ? team.items.push(line[1].trim()) : team.items.push(false);
+				/* eslint-enable */
 			} else if (~l.indexOf("EVs: ")) {
 				team.evs.push(l.substr(l.indexOf(' ')).trim());
 			} else if (~l.indexOf("Ability: ")) {
@@ -97,7 +99,7 @@ function packTeam (importable) {
 			} else if (~l.indexOf("Nature")) {
 				team.natures.push(l.substr(0, l.indexOf(' ')).trim());
 			} else if (~l.indexOf("- ")) {
-				let pokeno = team.pokemon.length -1;
+				let pokeno = team.pokemon.length - 1;
 				if (team.moves[pokeno]) {
 					team.moves[pokeno].push(l.substr(l.indexOf(" ")).trim());
 				} else {
@@ -114,24 +116,24 @@ function packTeam (importable) {
 	return team;
 }
 
-function getImgs (format, team) {
+function getImgs(format, team) {
 	let output = "";
-	if (typeof(team) !== "object") team = packTeam(team);
+	if (typeof (team) !== "object") team = packTeam(team);
 	let pokemon = team.pokemon;
 	for (let j = 0; j < pokemon.length; j++) {
-		output += getImg (format, pokemon[j].toLowerCase());
+		output += getImg(format, pokemon[j].toLowerCase());
 	}
 	return output;
 }
 
-function getImg (format, pokemon) {
+function getImg(format, pokemon) {
 	if (!formats[format]) return;
-	let fdata= formats[format];
+	let fdata = formats[format];
 	let output = '[img]' + fdata[0] + (fdata[2] ? hash(pokemon, fdata[2]) : pokemon) + fdata[1] + '[/img]';
 	return output;
 }
 
-function toTitle (text, options) { //This function is a disaster lol
+function toTitle(text, options) { //This function is a disaster lol
 	let output = "[" + options.align + "][FONT=" + options.tfont + "][SIZE=" + options.size + "]";
 	if (options.bold) output += "[B]";
 	if (options.underlined) output += "[U]";
@@ -143,8 +145,8 @@ function toTitle (text, options) { //This function is a disaster lol
 	return output;
 }
 
-function buildingProcess (format, pokemon, f, fe) {
-	let output = ["","","","","",""];
+function buildingProcess(format, pokemon, f, fe) {
+	let output = ["", "", "", "", "", ""];
 	for (let i = 0; i < pokemon.length; i++) {
 		let img = getImg(format, pokemon[i].toLowerCase());
 		for (let j = i; j < pokemon.length; j++) {
@@ -156,8 +158,8 @@ function buildingProcess (format, pokemon, f, fe) {
 	}
 	return output.join("");
 }
-
-function buildSets (data, options, f, fe) {
+/* eslint-disable */
+function buildSets(data, options, f, fe) {
 	let output = "";
 	switch (options.setFormat) {
 	case 'importable': //default
@@ -184,7 +186,7 @@ function buildSets (data, options, f, fe) {
 				(data.ivs[i] ? "[B]IVs:[/B] " + data.ivs[i] + "\n" : "") +
 				"[B]Moves:[/B] ";
 			for (let k = 0; k < data.moves[i].length; k++) {
-				if (k !== 0) output+= " | ";
+				if (k !== 0) output += " | ";
 				output += data.moves[i][k];
 			}
 		output += "[/LEFT]\n\n" + f + "**Why did you choose this pokemon? What does it do for your team?**" + fe + "\n\n";
@@ -224,8 +226,9 @@ function buildSets (data, options, f, fe) {
 	}
 	return output;
 }
+/* eslint-enable */
 
-function rmt (team, options) {
+function rmt(team, options) {
 	let data = packTeam(team);
 	options.align = options.align.toUpperCase(); //easier than doing this client-side
 	options.size = parseInt(options.size);
@@ -237,9 +240,11 @@ function rmt (team, options) {
 	let output = "";
 	output += "[center]" + getImgs(options.imgFormat, data) + "[/center]\n\n" +
 		toTitle("Introduction", options) + "\n\n" + f + "**Introduction goes here**" + fe + "\n\n";
-	if (options.process) output+= toTitle("Teambuilding Process", options) + "\n\n" +
-		"[hide]" + buildingProcess(options.processFormat, data.pokemon, f, fe) + "[/hide]\n" +
-		"\n" +  toTitle("The Team", options) + "\n\n";
+	if (options.process) {
+		output += toTitle("Teambuilding Process", options) + "\n\n" +
+			"[hide]" + buildingProcess(options.processFormat, data.pokemon, f, fe) + "[/hide]\n" +
+			"\n" + toTitle("The Team", options) + "\n\n";
+	}
 	output += buildSets(data, options, f, fe);
 	output += toTitle("Conclusion", options) + "\n\n" + f + "**Conclusion goes here**" + fe + "\n\n" +
 		"[hide=Importable]" + data.importable + "[/hide]";

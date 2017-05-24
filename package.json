@@ -4,7 +4,8 @@
   "description": "RMT Generator!",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "./node_modules/.bin/eslint *.js" 
   },
   "license": "MIT",
   "dependencies": {
@@ -14,5 +15,9 @@
     "express": "^4.14.1",
     "helmet": "^3.6.1",
     "pug": "^2.0.0-beta11"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.7.1"
   }
 }
