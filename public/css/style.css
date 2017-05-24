@@ -82,6 +82,7 @@ main {
     box-shadow: inset 0px 1px 2px #CCCCCC, 1px 1px 0 rgba(255,255,255,.6);
     background: #F8FBFD;
     color: black;
+    width: 80%;
 }
 
 #accordion .glyphicon { margin-right:10px; }
