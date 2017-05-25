@@ -2,6 +2,7 @@
 
 const dex = require('./data/dex.js');
 const megas = require('./data/megas.js');
+const baseImage = require('./data/base-image.js');
 
 const formats = {
 	"pokesho": ["http://www.pokestadium.com/assets/img/sprites/misc/pokesho/", ".gif"],
@@ -128,6 +129,10 @@ function getImgs(format, team) {
 
 function getImg(format, pokemon) {
 	if (!formats[format]) return;
+	if (pokemon === "mime jr.") pokemon = "mimejr";
+	if (pokemon === "mime jr." && format === "icons") pokemon = "mime-jr";
+	console.log(pokemon)
+	if (baseImage[pokemon]) format = 'xyanimated';
 	let fdata = formats[format];
 	let output = '[img]' + fdata[0] + (fdata[2] ? hash(pokemon, fdata[2]) : pokemon) + fdata[1] + '[/img]';
 	return output;
