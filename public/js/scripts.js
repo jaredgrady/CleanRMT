@@ -4,8 +4,8 @@ $("input").change(function(e) {
 });
 
 $("#import").click(function() {
-        var keys = ['image-type', 'build-process', 'header-font', 'align', 'header-size', 'bold-header', 'underline-header', 'set-format', 'font'];
-        var values = ['icons', 'true', 'Arial', 'center', '3', 'false', 'false', 'importable', 'Arial'];
+        var keys = ['image-type', 'build-process', 'header-font', 'align', 'header-size', 'bold-header', 'underline-header', 'set-format', 'font', 'processFormat'];
+        var values = ['icons', 'true', 'Arial', 'center', '3', 'false', 'false', 'importable', 'Arial', 'xyanimated'];
 
         sessionStorage.setItem('team', $('#team-input').val());
         for (var i = 0; i < values.length; i++) {
